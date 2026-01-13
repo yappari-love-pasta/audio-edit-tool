@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP3 Audio Editor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎵 MP3 Audio Editor</h1>
+    </header>
+
+    <main>
+      <section class="file-section">
+        <button id="selectFileBtn" class="btn btn-primary">MP3ファイルを選択</button>
+        <div id="fileInfo" class="file-info hidden">
+          <p><strong>ファイル名:</strong> <span id="fileName"></span></p>
+          <p><strong>再生時間:</strong> <span id="fileDuration"></span></p>
+        </div>
+      </section>
+
+      <section class="audio-section hidden" id="audioSection">
+        <div class="audio-player">
+          <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="controls-section">
+          <div class="control-group">
+            <h3>切り取り範囲</h3>
+            <div class="time-controls">
+              <div class="time-input">
+                <label for="startTime">開始時間 (秒):</label>
+                <input type="number" id="startTime" min="0" step="0.1" value="0">
+              </div>
+              <div class="time-input">
+                <label for="endTime">終了時間 (秒):</label>
+                <input type="number" id="endTime" min="0" step="0.1" value="0">
+              </div>
+            </div>
+            <div class="time-display">
+              <p>切り取り時間: <span id="cutDuration">0</span> 秒</p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>音質設定</h3>
+            <div class="quality-control">
+              <label for="bitrate">ビットレート:</label>
+              <select id="bitrate">
+                <option value="64">64 kbps (低品質)</option>
+                <option value="96">96 kbps</option>
+                <option value="128" selected>128 kbps (標準)</option>
+                <option value="192">192 kbps (高品質)</option>
+                <option value="256">256 kbps</option>
+                <option value="320">320 kbps (最高品質)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>ボリューム調整</h3>
+            <div class="volume-control">
+              <label for="volume">音量: <span id="volumeValue">100</span>%</label>
+              <input type="range" id="volume" min="0" max="200" step="5" value="100">
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button id="processBtn" class="btn btn-success">保存</button>
+            <div id="progressSection" class="progress-section hidden">
+              <div class="progress-bar">
+                <div id="progressBar" class="progress-fill"></div>
+              </div>
+              <p id="progressText">処理中... 0%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="successMessage" class="message success hidden">
+        ファイルの保存が完了しました！
+      </section>
+
+      <section id="errorMessage" class="message error hidden">
+        エラーが発生しました: <span id="errorText"></span>
+      </section>
+    </main>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
